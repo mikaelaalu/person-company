@@ -8,7 +8,6 @@ const useLocalStorage = () => {
     e.preventDefault();
     if (e.target.user && e.target.company) {
       const id = Math.floor(Math.random() * Math.floor(1000));
-      console.log(typeof id);
       const newPerson = {
         id,
         name: e.target.user.value,
