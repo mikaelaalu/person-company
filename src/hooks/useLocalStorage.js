@@ -35,6 +35,7 @@ const useLocalStorage = () => {
     const updatedPerson = persons.map((person) => {
       if (person.id === personToUpdate.id) {
         return {
+          id: person.id,
           name: personToUpdate.name,
           company: company ? company : "",
         };
