@@ -42,7 +42,6 @@ const List = () => {
 
   const formSubmit = (e, person) => {
     e.preventDefault();
-    console.log(e.target.company.value);
 
     const company = e.target.company.value;
 
@@ -53,8 +52,8 @@ const List = () => {
       <div>
         <p>People not connected to a company</p>
 
-        {personsWithNoCompany.map((person) => (
-          <Wrapper>
+        {personsWithNoCompany.map((person, i) => (
+          <Wrapper key={i}>
             <p style={{ textAlign: "left" }}>{person.person}</p>
             <Form onSubmit={(e) => formSubmit(e, person)}>
               <StyledSelect name="company">

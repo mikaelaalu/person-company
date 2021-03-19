@@ -6,6 +6,7 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import Form from "../components/form/Form";
 import Input from "../components/form/Input";
 import RedButton from "../components/RedButton";
+import TextWithColor from "../components/TextWithColor";
 
 const StyledSelect = styled.select`
   width: 9rem;
@@ -30,6 +31,8 @@ const Company = () => {
   } = useLocalStorage();
 
   const [company, setCompany] = useState();
+  const [showText, setShowText] = useState(false);
+  const [showConfirmText, setShowConfirmText] = useState(false);
 
   const showPeople = (e) => {
     e.preventDefault();
@@ -49,12 +52,40 @@ const Company = () => {
     updatePerson(e, personToUpdate);
   };
 
+  const checkForDuplicates = (e) => {
+    e.preventDefault();
+    const test = e.target.company.value;
+
+    const alreadyAdded = companies.find(
+      ({ company }) => company.toLowerCase() === test.toLowerCase()
+    );
+    if (alreadyAdded) {
+      setShowText(true);
+      setTimeout(() => {
+        setShowText(false);
+      }, 3000);
+      return;
+    }
+
+    setShowConfirmText(true);
+    setTimeout(() => {
+      setShowConfirmText(false);
+    }, 3000);
+
+    handleFormSubmit(e);
+  };
+
   return (
     <PageWrapper>
-      <Form onSubmit={handleFormSubmit}>
+      <Form onSubmit={checkForDuplicates}>
+        {showText && (
+          <TextWithColor color={"red"} text={"Company already exist"} />
+        )}
+        {showConfirmText && (
+          <TextWithColor color={"green"} text={"Company added!"} />
+        )}
         <label>Add new company:</label>
         <Input required name="company" placeholder={"Name"} />
-
         <Button text={"Add company"} />
       </Form>
 
@@ -72,7 +103,6 @@ const Company = () => {
               </option>
             ))}
           </StyledSelect>
-
           <Button text={"Show CO-workers"} />
         </Form>
         <p>
