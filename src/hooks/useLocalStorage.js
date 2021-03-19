@@ -26,14 +26,13 @@ const useLocalStorage = () => {
     }
   };
 
-  const updatePerson = (event, personToUpdate) => {
-    event.preventDefault();
-
+  const updatePerson = (e, personToUpdate, company) => {
+    e.preventDefault();
     const updatedPerson = persons.map((person) => {
       if (person.person === personToUpdate.person) {
         return {
           person: personToUpdate.person,
-          company: "",
+          company: company ? company : "",
         };
       } else {
         return person;

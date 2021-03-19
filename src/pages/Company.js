@@ -42,7 +42,6 @@ const Company = () => {
 
   const removePersonFromCompany = (e, person) => {
     e.preventDefault();
-    console.log();
 
     const personToUpdate = personsConnectedToCompany.find(
       (p) => p.person === person
@@ -79,7 +78,7 @@ const Company = () => {
         <p>
           People working at <b>{company}</b>
         </p>
-        {personsConnectedToCompany.length
+        {personsConnectedToCompany.length !== 0
           ? personsConnectedToCompany.map(({ person }, i) => (
               <PersonWrapper key={i}>
                 <p>{person}</p>
