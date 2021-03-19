@@ -5,6 +5,7 @@ import styled from "styled-components";
 import useLocalStorage from "../hooks/useLocalStorage";
 import Form from "../components/form/Form";
 import Input from "../components/form/Input";
+import RedButton from "../components/RedButton";
 
 const StyledSelect = styled.select`
   width: 9rem;
@@ -14,25 +15,48 @@ const StyledSelect = styled.select`
   margin-top: 1rem;
 `;
 
-const Company = () => {
-  const [company, setCompany] = useState();
+const PersonWrapper = styled.form`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 
-  const { handleFormSubmit, companies } = useLocalStorage();
+const Company = () => {
+  const {
+    handleFormSubmit,
+    updatePerson,
+    companies,
+    persons,
+  } = useLocalStorage();
+
+  const [company, setCompany] = useState();
 
   const showPeople = (e) => {
     e.preventDefault();
     setCompany(e.target.company.value);
   };
 
-  console.log(companies);
+  const personsConnectedToCompany = persons.filter((p) =>
+    company === "" ? null : p.company === company
+  );
+
+  const removePersonFromCompany = (e, person) => {
+    e.preventDefault();
+    console.log();
+
+    const personToUpdate = personsConnectedToCompany.find(
+      (p) => p.person === person
+    );
+    updatePerson(e, personToUpdate);
+  };
 
   return (
     <PageWrapper>
       <Form onSubmit={handleFormSubmit}>
-        <label>Company:</label>
+        <label>Add new company:</label>
         <Input required name="company" placeholder={"Name"} />
 
-        <Button callback={() => console.log("button")} text={"Add company"} />
+        <Button text={"Add company"} />
       </Form>
 
       <div style={{ marginTop: "2rem" }}>
@@ -50,9 +74,22 @@ const Company = () => {
             ))}
           </StyledSelect>
 
-          <Button callback={() => console.log("button")} text={"test"} />
+          <Button text={"Show CO-workers"} />
         </Form>
-        <p>här är de valda företaget: {company}</p>
+        <p>
+          People working at <b>{company}</b>
+        </p>
+        {personsConnectedToCompany.length
+          ? personsConnectedToCompany.map(({ person }, i) => (
+              <PersonWrapper key={i}>
+                <p>{person}</p>
+                <RedButton
+                  callback={(e) => removePersonFromCompany(e, person)}
+                  text={"Remove from company"}
+                />
+              </PersonWrapper>
+            ))
+          : null}
       </div>
     </PageWrapper>
   );

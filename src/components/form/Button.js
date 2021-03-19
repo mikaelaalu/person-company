@@ -13,8 +13,8 @@ const StyledButton = styled.button`
   }
 `;
 
-const Button = ({ callback, text }) => {
-  return <StyledButton onClick={() => callback()}>{text}</StyledButton>;
+const Button = ({ text }) => {
+  return <StyledButton>{text}</StyledButton>;
 };
 
 export default Button;

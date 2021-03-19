@@ -15,9 +15,8 @@ const StyledSelect = styled.select`
 `;
 
 const Person = () => {
-  const { handleFormSubmit, companies, persons } = useLocalStorage();
+  const { handleFormSubmit, companies } = useLocalStorage();
 
-  console.log(persons);
   return (
     <PageWrapper>
       <Form onSubmit={handleFormSubmit}>
@@ -33,7 +32,7 @@ const Person = () => {
           ))}
         </StyledSelect>
 
-        <Button callback={() => console.log("button")} text={"Add person"} />
+        <Button text={"Add person"} />
       </Form>
     </PageWrapper>
   );

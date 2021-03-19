@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
-const useLocalStorage = (person) => {
+const useLocalStorage = () => {
   const [persons, setPersons] = useState([]);
 
   const [companies, setCompanies] = useState([{ company: "" }]);
@@ -24,6 +24,23 @@ const useLocalStorage = (person) => {
       setCompanies([...companies, newCompany]);
       e.target.company.value = "";
     }
+  };
+
+  const updatePerson = (event, personToUpdate) => {
+    event.preventDefault();
+
+    const updatedPerson = persons.map((person) => {
+      if (person.person === personToUpdate.person) {
+        return {
+          person: personToUpdate.person,
+          company: "",
+        };
+      } else {
+        return person;
+      }
+    });
+
+    setPersons(updatedPerson);
   };
 
   useEffect(() => {
@@ -54,7 +71,7 @@ const useLocalStorage = (person) => {
     }
   }, []);
 
-  return { handleFormSubmit, companies, persons };
+  return { handleFormSubmit, updatePerson, companies, persons };
 };
 
 export default useLocalStorage;
