@@ -43,12 +43,10 @@ const Company = () => {
     company === "" ? null : p.company === company
   );
 
-  const removePersonFromCompany = (e, person) => {
+  const removePersonFromCompany = (e, id) => {
     e.preventDefault();
 
-    const personToUpdate = personsConnectedToCompany.find(
-      (p) => p.name === person
-    );
+    const personToUpdate = personsConnectedToCompany.find((p) => p.id === id);
     updatePerson(e, personToUpdate);
   };
 
@@ -109,11 +107,11 @@ const Company = () => {
           People working at <b>{company}</b>
         </p>
         {personsConnectedToCompany.length !== 0
-          ? personsConnectedToCompany.map(({ name }, i) => (
+          ? personsConnectedToCompany.map((person, i) => (
               <PersonWrapper key={i}>
-                <p>{name}</p>
+                <p>{person.name}</p>
                 <RedButton
-                  callback={(e) => removePersonFromCompany(e, name)}
+                  callback={(e) => removePersonFromCompany(e, person.id)}
                   text={"Remove from company"}
                 />
               </PersonWrapper>

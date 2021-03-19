@@ -2,13 +2,15 @@ import { useState, useEffect } from "react";
 
 const useLocalStorage = () => {
   const [persons, setPersons] = useState([]);
-
   const [companies, setCompanies] = useState([{ company: "" }]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (e.target.user && e.target.company) {
+      const id = Math.floor(Math.random() * Math.floor(1000));
+      console.log(typeof id);
       const newPerson = {
+        id,
         name: e.target.user.value,
         company: e.target.company.value,
       };
@@ -31,7 +33,7 @@ const useLocalStorage = () => {
   const updatePerson = (e, personToUpdate, company) => {
     e.preventDefault();
     const updatedPerson = persons.map((person) => {
-      if (person.name === personToUpdate.name) {
+      if (person.id === personToUpdate.id) {
         return {
           name: personToUpdate.name,
           company: company ? company : "",
