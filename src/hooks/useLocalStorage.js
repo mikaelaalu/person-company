@@ -27,7 +27,7 @@ const useLocalStorage = (person) => {
   };
 
   useEffect(() => {
-    if (persons.length > 0) {
+    if (persons.length > 1) {
       const json = JSON.stringify(persons);
       localStorage.setItem("persons", json);
     }
