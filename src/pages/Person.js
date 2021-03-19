@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import PageWrapper from "../components/PageWrapper";
 import Button from "../components/form/Button";
 import styled from "styled-components";
 import useLocalStorage from "../hooks/useLocalStorage";
 import Form from "../components/form/Form";
 import Input from "../components/form/Input";
+import TextWithColor from "../components/TextWithColor";
 
 const StyledSelect = styled.select`
   width: 9rem;
@@ -16,13 +17,39 @@ const StyledSelect = styled.select`
 
 const Person = () => {
   const { handleFormSubmit, companies } = useLocalStorage();
+  const [showWarning, setShowWarning] = useState(false);
+  const [showConfirmText, setShowConfirmText] = useState(false);
+
+  const submit = (e) => {
+    e.preventDefault();
+
+    const person = e.target.user.value;
+
+    if (person.length < 3) {
+      setShowWarning(true);
+      setTimeout(() => {
+        setShowWarning(false);
+      }, 3000);
+      return;
+    }
+    setShowConfirmText(true);
+    setTimeout(() => {
+      setShowConfirmText(false);
+    }, 3000);
+    handleFormSubmit(e);
+  };
 
   return (
     <PageWrapper>
-      <Form onSubmit={handleFormSubmit}>
+      <Form onSubmit={submit}>
+        {showWarning && (
+          <TextWithColor color={"red"} text={"Add more than 2 letters"} />
+        )}
+        {showConfirmText && (
+          <TextWithColor color={"green"} text={"Person added!"} />
+        )}
         <label>Person:</label>
         <Input name="user" placeholder={"Name"} />
-
         <label>Company:</label>
         <StyledSelect name="company">
           {companies.map(({ company }, i) => (
@@ -32,7 +59,7 @@ const Person = () => {
           ))}
         </StyledSelect>
 
-        <Button text={"Add person"} />
+        <Button type="submit" text={"Add person"} />
       </Form>
     </PageWrapper>
   );

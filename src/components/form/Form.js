@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  min-height: 16rem;
+  min-height: 18rem;
   justify-content: center;
   align-items: center;
   border: 1px solid black;

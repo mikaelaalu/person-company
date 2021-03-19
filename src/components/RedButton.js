@@ -14,7 +14,7 @@ const StyledButton = styled.button`
   }
 `;
 
-const RedButton = ({ callback, text }) => {
+const RedButton = ({ text, callback }) => {
   return <StyledButton onClick={callback}>{text}</StyledButton>;
 };
 

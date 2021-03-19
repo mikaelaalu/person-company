@@ -54,7 +54,7 @@ const List = () => {
 
         {personsWithNoCompany.map((person, i) => (
           <Wrapper key={i}>
-            <p style={{ textAlign: "left" }}>{person.person}</p>
+            <p>{person.name}</p>
             <Form onSubmit={(e) => formSubmit(e, person)}>
               <StyledSelect name="company">
                 {companies.map(({ company }, i) => (

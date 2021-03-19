@@ -9,10 +9,12 @@ const useLocalStorage = () => {
     e.preventDefault();
     if (e.target.user && e.target.company) {
       const newPerson = {
-        person: e.target.user.value,
+        name: e.target.user.value,
         company: e.target.company.value,
       };
+
       setPersons([...persons, newPerson]);
+
       e.target.user.value = "";
       e.target.company.value = "";
     }
@@ -29,9 +31,9 @@ const useLocalStorage = () => {
   const updatePerson = (e, personToUpdate, company) => {
     e.preventDefault();
     const updatedPerson = persons.map((person) => {
-      if (person.person === personToUpdate.person) {
+      if (person.name === personToUpdate.name) {
         return {
-          person: personToUpdate.person,
+          name: personToUpdate.name,
           company: company ? company : "",
         };
       } else {
@@ -43,7 +45,7 @@ const useLocalStorage = () => {
   };
 
   useEffect(() => {
-    if (persons.length > 1) {
+    if (persons.length > 0) {
       const json = JSON.stringify(persons);
       localStorage.setItem("persons", json);
     }

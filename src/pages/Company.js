@@ -31,7 +31,7 @@ const Company = () => {
   } = useLocalStorage();
 
   const [company, setCompany] = useState();
-  const [showText, setShowText] = useState(false);
+  const [showWarning, setShowWarning] = useState(false);
   const [showConfirmText, setShowConfirmText] = useState(false);
 
   const showPeople = (e) => {
@@ -47,7 +47,7 @@ const Company = () => {
     e.preventDefault();
 
     const personToUpdate = personsConnectedToCompany.find(
-      (p) => p.person === person
+      (p) => p.name === person
     );
     updatePerson(e, personToUpdate);
   };
@@ -60,9 +60,9 @@ const Company = () => {
       ({ company }) => company.toLowerCase() === test.toLowerCase()
     );
     if (alreadyAdded) {
-      setShowText(true);
+      setShowWarning(true);
       setTimeout(() => {
-        setShowText(false);
+        setShowWarning(false);
       }, 3000);
       return;
     }
@@ -78,7 +78,7 @@ const Company = () => {
   return (
     <PageWrapper>
       <Form onSubmit={checkForDuplicates}>
-        {showText && (
+        {showWarning && (
           <TextWithColor color={"red"} text={"Company already exist"} />
         )}
         {showConfirmText && (
@@ -109,11 +109,11 @@ const Company = () => {
           People working at <b>{company}</b>
         </p>
         {personsConnectedToCompany.length !== 0
-          ? personsConnectedToCompany.map(({ person }, i) => (
+          ? personsConnectedToCompany.map(({ name }, i) => (
               <PersonWrapper key={i}>
-                <p>{person}</p>
+                <p>{name}</p>
                 <RedButton
-                  callback={(e) => removePersonFromCompany(e, person)}
+                  callback={(e) => removePersonFromCompany(e, name)}
                   text={"Remove from company"}
                 />
               </PersonWrapper>
