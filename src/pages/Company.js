@@ -43,7 +43,7 @@ const Company = () => {
 
           <label>Company:</label>
           <StyledSelect name="company">
-            {companies.map(({ company, i }) => (
+            {companies.map(({ company }, i) => (
               <option key={i} value={company}>
                 {company}
               </option>
