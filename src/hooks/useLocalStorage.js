@@ -29,8 +29,7 @@ const useLocalStorage = () => {
     }
   };
 
-  const updatePerson = (e, personToUpdate, company) => {
-    e.preventDefault();
+  const updatePerson = (personToUpdate, company) => {
     const updatedPerson = persons.map((person) => {
       if (person.id === personToUpdate.id) {
         return {
