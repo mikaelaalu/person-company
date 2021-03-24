@@ -16,7 +16,7 @@ const StyledSelect = styled.select`
 `;
 
 const Person = () => {
-  const { handleFormSubmit, companies } = useLocalStorage();
+  const { add, companies } = useLocalStorage();
   const [showWarning, setShowWarning] = useState(false);
   const [showConfirmText, setShowConfirmText] = useState(false);
 
@@ -36,7 +36,8 @@ const Person = () => {
     setTimeout(() => {
       setShowConfirmText(false);
     }, 3000);
-    handleFormSubmit(e);
+
+    add(e);
   };
 
   return (

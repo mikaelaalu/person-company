@@ -23,12 +23,7 @@ const PersonWrapper = styled.form`
 `;
 
 const Company = () => {
-  const {
-    handleFormSubmit,
-    updatePerson,
-    companies,
-    persons,
-  } = useLocalStorage();
+  const { add, updatePerson, companies, persons } = useLocalStorage();
 
   const [company, setCompany] = useState();
   const [showWarning, setShowWarning] = useState(false);
@@ -52,10 +47,10 @@ const Company = () => {
 
   const checkForDuplicates = (e) => {
     e.preventDefault();
-    const test = e.target.company.value;
+    const newCompany = e.target.company.value;
 
     const alreadyAdded = companies.find(
-      ({ company }) => company.toLowerCase() === test.toLowerCase()
+      ({ company }) => company.toLowerCase() === newCompany.toLowerCase()
     );
     if (alreadyAdded) {
       setShowWarning(true);
@@ -70,7 +65,7 @@ const Company = () => {
       setShowConfirmText(false);
     }, 3000);
 
-    handleFormSubmit(e);
+    add(e);
   };
 
   return (

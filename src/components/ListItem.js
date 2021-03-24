@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import useLocalStorage from "../hooks/useLocalStorage";
 
@@ -35,13 +35,12 @@ const Form = styled.form`
 `;
 
 const ListItem = ({ person, callback }) => {
-  const [selectedValue, setSelectedValue] = React.useState("");
+  const [selectedValue, setSelectedValue] = useState("");
   const { companies } = useLocalStorage();
 
   const handleSelect = (e) => {
     setSelectedValue(e.target.value);
   };
-  console.log("name + selected: ", person.name, selectedValue);
 
   const handleSubmit = (e, person, selected) => {
     e.preventDefault();

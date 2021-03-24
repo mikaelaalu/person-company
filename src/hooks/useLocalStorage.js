@@ -4,8 +4,7 @@ const useLocalStorage = () => {
   const [persons, setPersons] = useState([]);
   const [companies, setCompanies] = useState([{ company: "" }]);
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
+  const add = (e) => {
     if (e.target.user && e.target.company) {
       const id = Math.floor(Math.random() * Math.floor(1000));
       const newPerson = {
@@ -73,7 +72,7 @@ const useLocalStorage = () => {
     }
   }, []);
 
-  return { handleFormSubmit, updatePerson, companies, persons };
+  return { add, updatePerson, companies, persons };
 };
 
 export default useLocalStorage;
