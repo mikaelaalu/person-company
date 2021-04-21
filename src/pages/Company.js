@@ -84,7 +84,7 @@ const Company = () => {
       <div style={{ marginTop: "2rem" }}>
         <Form onSubmit={showPeople}>
           <p style={{ fontSize: "12px" }}>
-            Choose a company and show me the co-workers
+            Choose a company and see the co-workers
           </p>
 
           <label>Company:</label>
