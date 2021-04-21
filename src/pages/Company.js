@@ -102,7 +102,6 @@ const Company = () => {
         </p>
         {personsConnectedToCompany.length !== 0
           ? personsConnectedToCompany.map((person, i) => {
-              console.log(person);
               return (
                 <PersonWrapper key={i}>
                   <p>{person.name}</p>
