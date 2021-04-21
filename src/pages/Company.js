@@ -40,9 +40,8 @@ const Company = () => {
 
   const removePersonFromCompany = (e, id) => {
     e.preventDefault();
-
     const personToUpdate = personsConnectedToCompany.find((p) => p.id === id);
-    updatePerson(e, personToUpdate);
+    updatePerson(personToUpdate);
   };
 
   const checkForDuplicates = (e) => {
@@ -102,15 +101,20 @@ const Company = () => {
           People working at <b>{company}</b>
         </p>
         {personsConnectedToCompany.length !== 0
-          ? personsConnectedToCompany.map((person, i) => (
-              <PersonWrapper key={i}>
-                <p>{person.name}</p>
-                <RedButton
-                  callback={(e) => removePersonFromCompany(e, person.id)}
-                  text={"Remove from company"}
-                />
-              </PersonWrapper>
-            ))
+          ? personsConnectedToCompany.map((person, i) => {
+              console.log(person);
+              return (
+                <PersonWrapper key={i}>
+                  <p>{person.name}</p>
+                  <RedButton
+                    callback={(e) =>
+                      removePersonFromCompany(e, person.id, person.company)
+                    }
+                    text={"Remove from company"}
+                  />
+                </PersonWrapper>
+              );
+            })
           : null}
       </div>
     </PageWrapper>
